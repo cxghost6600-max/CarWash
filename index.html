@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Crystal Wash — Premium Car Wash & Detailing</title>
+<meta name="description" content="Premium car wash and detailing. Ceramic coating, paint protection, interior cleaning. Book your appointment today.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#050608;
+    --bg-alt:#0B0D10;
+    --glass:rgba(255,255,255,0.05);
+    --glass-border:rgba(255,255,255,0.1);
+    --blue:#3B82F6;
+    --blue-light:#60A5FA;
+    --text:#F4F5F7;
+    --text-dim:#9CA3AF;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;overflow-x:hidden;}
+  a{color:inherit;text-decoration:none;}
+  ::selection{background:var(--blue);color:white;}
+  .wrap{max-width:1200px;margin:0 auto;padding:0 24px;}
+  img{display:block;max-width:100%;}
+
+  .glass{
+    background:var(--glass);
+    border:1px solid var(--glass-border);
+    backdrop-filter:blur(8px);
+    -webkit-backdrop-filter:blur(8px);
+  }
+
+  /* NAV */
+  nav{
+    position:fixed;top:0;left:0;right:0;z-index:100;
+    transition:background .3s ease, border-color .3s ease;
+    border-bottom:1px solid transparent;
+  }
+  nav.scrolled{background:rgba(5,6,8,0.75);backdrop-filter:blur(14px);border-color:var(--glass-border);}
+  .nav-inner{display:flex;align-items:center;justify-content:space-between;padding:18px 24px;}
+  .logo{font-weight:800;font-size:20px;letter-spacing:-0.02em;display:flex;align-items:center;gap:8px;}
+  .logo .dot{width:8px;height:8px;border-radius:50%;background:var(--blue);box-shadow:0 0 12px var(--blue);}
+  .logo span{color:var(--blue-light);}
+  .navlinks{display:none;gap:32px;font-size:14px;color:var(--text-dim);}
+  @media(min-width:860px){.navlinks{display:flex;}}
+  .navlinks a:hover{color:var(--blue-light);}
+  .btn{
+    display:inline-flex;align-items:center;gap:8px;
+    padding:13px 26px;font-size:14px;font-weight:600;border-radius:999px;
+    transition:all .25s ease;cursor:pointer;border:none;font-family:inherit;
+  }
+  .btn-primary{background:var(--blue);color:white;box-shadow:0 8px 24px rgba(59,130,246,0.35);}
+  .btn-primary:hover{background:var(--blue-light);transform:translateY(-2px);box-shadow:0 12px 30px rgba(59,130,246,0.5);}
+  .btn-ghost{background:var(--glass);border:1px solid var(--glass-border);color:var(--text);}
+  .btn-ghost:hover{background:rgba(255,255,255,0.1);}
+  .navbtn{display:none;}
+  @media(min-width:860px){.navbtn{display:inline-flex;}}
+  .burger{display:flex;background:none;border:none;color:var(--text);}
+  @media(min-width:860px){.burger{display:none;}}
+  .mobile-menu{display:none;flex-direction:column;gap:16px;padding:20px 24px 28px;background:rgba(5,6,8,0.97);backdrop-filter:blur(14px);border-top:1px solid var(--glass-border);}
+  .mobile-menu.open{display:flex;}
+  .mobile-menu a{color:var(--text-dim);font-size:15px;}
+
+  /* HERO */
+  .hero{
+    position:relative;min-height:100vh;display:flex;align-items:center;overflow:hidden;
+  }
+  .hero-bg{position:absolute;inset:0;}
+  .hero-bg img{width:100%;height:100%;object-fit:cover;transform:scale(1.1);transition:transform .2s ease-out;}
+  .hero-bg::after{content:'';position:absolute;inset:0;
+    background:linear-gradient(to bottom, rgba(5,6,8,0.3), rgba(5,6,8,0.6) 60%, var(--bg));
+  }
+  .hero-bg::before{content:'';position:absolute;inset:0;
+    background:linear-gradient(90deg, rgba(5,6,8,0.9), transparent 50%, rgba(5,6,8,0.6));
+    z-index:1;
+  }
+  .glow{position:absolute;border-radius:50%;filter:blur(60px);pointer-events:none;opacity:0.22;will-change:transform;}
+  .glow1{width:300px;height:300px;background:var(--blue);top:15%;left:10%;animation:float 8s ease-in-out infinite;}
+  .glow2{width:360px;height:360px;background:#2563EB;bottom:5%;right:10%;animation:float 10s ease-in-out infinite reverse;}
+  @keyframes float{0%,100%{transform:translateY(0);}50%{transform:translateY(-30px);}}
+
+  .hero-content{position:relative;z-index:2;}
+  .badge{
+    display:inline-flex;align-items:center;gap:8px;padding:9px 16px;border-radius:999px;
+    font-size:12px;color:var(--blue-light);margin-bottom:24px;
+  }
+  .hero h1{
+    font-size:clamp(38px,7vw,72px);font-weight:800;line-height:1.05;letter-spacing:-0.02em;
+    max-width:720px;margin-bottom:22px;
+  }
+  .hero h1 .accent{background:linear-gradient(90deg,#93C5FD,#3B82F6);-webkit-background-clip:text;background-clip:text;color:transparent;}
+  .hero p{font-size:19px;color:var(--text-dim);max-width:480px;margin-bottom:36px;}
+  .btnrow{display:flex;gap:16px;flex-wrap:wrap;}
+
+  section{padding:110px 0;position:relative;}
+  .section-head{max-width:620px;margin:0 auto 56px;text-align:center;}
+  .eyebrow{color:var(--blue-light);font-size:13px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;}
+  .section-head h2{font-size:clamp(28px,4.2vw,44px);font-weight:800;letter-spacing:-0.02em;margin-top:14px;}
+  .section-head p{color:var(--text-dim);margin-top:14px;font-size:16px;}
+
+  /* STATS */
+  .stats{border-top:1px solid var(--glass-border);border-bottom:1px solid var(--glass-border);background:var(--bg-alt);padding:70px 0;}
+  .stats-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:32px;text-align:center;}
+  @media(min-width:760px){.stats-grid{grid-template-columns:repeat(4,1fr);}}
+  .stat-num{font-size:clamp(32px,5vw,48px);font-weight:800;color:var(--blue-light);}
+  .stat-label{color:var(--text-dim);margin-top:6px;font-size:14px;}
+
+  /* SERVICES */
+  .services-grid{display:grid;grid-template-columns:1fr;gap:22px;}
+  @media(min-width:640px){.services-grid{grid-template-columns:repeat(2,1fr);}}
+  @media(min-width:960px){.services-grid{grid-template-columns:repeat(3,1fr);}}
+  .service-card{border-radius:24px;padding:32px;transition:transform .3s ease, background .3s ease;}
+  .service-card:hover{transform:translateY(-6px);background:rgba(255,255,255,0.08);}
+  .service-icon{width:54px;height:54px;border-radius:16px;background:rgba(59,130,246,0.18);
+    display:flex;align-items:center;justify-content:center;margin-bottom:22px;font-size:24px;}
+  .service-card h3{font-size:19px;font-weight:700;margin-bottom:8px;}
+  .service-card p{color:var(--text-dim);font-size:14px;margin-bottom:16px;line-height:1.55;}
+  .service-price{color:var(--blue-light);font-weight:600;font-size:14px;}
+
+  /* BEFORE/AFTER */
+  .ba-wrap{max-width:900px;margin:0 auto;}
+  .ba-box{position:relative;border-radius:28px;overflow:hidden;aspect-ratio:16/9;user-select:none;box-shadow:0 30px 60px rgba(0,0,0,0.5);}
+  .ba-box img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
+  .ba-before-wrap{position:absolute;inset:0;overflow:hidden;clip-path:inset(0 50% 0 0);will-change:clip-path;}
+  .ba-before-wrap img{width:100%;height:100%;object-fit:cover;}
+  .ba-line{position:absolute;top:0;bottom:0;width:2px;background:var(--blue-light);left:50%;box-shadow:0 0 12px var(--blue);}
+  .ba-handle{
+    position:absolute;top:50%;left:50%;width:44px;height:44px;border-radius:50%;
+    background:var(--blue);transform:translate(-50%,-50%);display:flex;align-items:center;justify-content:center;
+    box-shadow:0 6px 20px rgba(59,130,246,0.5);pointer-events:none;font-size:18px;
+  }
+  .ba-range{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:ew-resize;margin:0;}
+  .ba-tag{position:absolute;top:16px;padding:6px 14px;border-radius:999px;font-size:12px;font-weight:600;z-index:3;}
+  .ba-tag.before{left:16px;}
+  .ba-tag.after{right:16px;background:var(--blue);color:white;border:none;}
+
+  /* WHY US */
+  .why-grid{display:grid;grid-template-columns:1fr;gap:16px;}
+  @media(min-width:700px){.why-grid{grid-template-columns:repeat(2,1fr);}}
+  @media(min-width:1000px){.why-grid{grid-template-columns:repeat(5,1fr);}}
+  .why-card{border-radius:20px;padding:26px 20px;text-align:center;}
+  .why-card .ico{font-size:26px;margin-bottom:14px;}
+  .why-card p{font-size:14px;color:var(--text-dim);}
+
+  /* PRICING */
+  .pricing-grid{display:grid;grid-template-columns:1fr;gap:24px;}
+  @media(min-width:860px){.pricing-grid{grid-template-columns:repeat(3,1fr);}}
+  .price-card{border-radius:28px;padding:36px 32px;display:flex;flex-direction:column;transition:transform .3s ease;}
+  .price-card:hover{transform:translateY(-6px);}
+  .price-card.highlight{
+    background:linear-gradient(160deg,#2563EB,#1D4ED8);
+    border:1px solid #60A5FA;transform:scale(1.04);
+    box-shadow:0 30px 60px rgba(37,99,235,0.35);
+  }
+  .price-tag{align-self:flex-start;background:white;color:#1D4ED8;font-size:11px;font-weight:800;
+    padding:5px 12px;border-radius:999px;margin-bottom:16px;letter-spacing:0.04em;}
+  .price-card h3{font-size:22px;font-weight:700;margin-bottom:10px;}
+  .price-amount{font-size:38px;font-weight:800;margin-bottom:22px;}
+  .price-amount span{font-size:15px;font-weight:500;color:var(--text-dim);}
+  .price-card.highlight .price-amount span{color:rgba(255,255,255,0.7);}
+  .price-features{list-style:none;margin-bottom:28px;flex:1;}
+  .price-features li{display:flex;gap:10px;align-items:flex-start;font-size:14px;color:var(--text-dim);margin-bottom:12px;}
+  .price-card.highlight .price-features li{color:rgba(255,255,255,0.9);}
+  .price-features li::before{content:'✓';color:var(--blue-light);font-weight:700;}
+  .price-card.highlight .price-features li::before{color:white;}
+  .price-card .btn{width:100%;justify-content:center;}
+  .price-card.highlight .btn-primary{background:white;color:#1D4ED8;box-shadow:none;}
+  .price-card.highlight .btn-primary:hover{background:#EFF6FF;}
+
+  /* TESTIMONIALS */
+  .test-grid{display:grid;grid-template-columns:1fr;gap:22px;}
+  @media(min-width:860px){.test-grid{grid-template-columns:repeat(3,1fr);}}
+  .test-card{border-radius:24px;padding:28px;}
+  .stars{color:var(--blue-light);margin-bottom:14px;font-size:14px;letter-spacing:2px;}
+  .test-card p{font-size:14px;color:var(--text-dim);line-height:1.6;margin-bottom:20px;}
+  .test-person{display:flex;align-items:center;gap:12px;}
+  .test-person img{width:42px;height:42px;border-radius:50%;object-fit:cover;}
+  .test-person .name{font-weight:600;font-size:14px;}
+  .test-person .role{font-size:12px;color:var(--text-dim);}
+
+  /* FAQ */
+  .faq-wrap{max-width:720px;margin:0 auto;}
+  .faq-item{border-radius:18px;margin-bottom:14px;overflow:hidden;}
+  .faq-q{width:100%;text-align:left;background:none;border:none;color:var(--text);font-family:inherit;
+    padding:20px 24px;display:flex;justify-content:space-between;align-items:center;cursor:pointer;font-size:15px;font-weight:600;}
+  .faq-q .arrow{transition:transform .3s ease;color:var(--blue-light);font-size:18px;}
+  .faq-item.open .faq-q .arrow{transform:rotate(180deg);}
+  .faq-a{max-height:0;overflow:hidden;transition:max-height .35s ease;}
+  .faq-item.open .faq-a{max-height:200px;}
+  .faq-a p{padding:0 24px 22px;color:var(--text-dim);font-size:14px;line-height:1.6;}
+
+  /* CONTACT */
+  .contact-grid{display:grid;grid-template-columns:1fr;gap:40px;}
+  @media(min-width:900px){.contact-grid{grid-template-columns:1fr 1fr;}}
+  .info-row{display:flex;align-items:center;gap:14px;color:var(--text-dim);margin-bottom:18px;font-size:14.5px;}
+  .info-row .ico{color:var(--blue-light);font-size:18px;width:22px;text-align:center;}
+  .map-box{border-radius:20px;height:220px;display:flex;align-items:center;justify-content:center;color:var(--text-dim);font-size:13px;margin-top:24px;}
+
+  form.glass{border-radius:24px;padding:32px;display:flex;flex-direction:column;gap:16px;}
+  .field label{font-size:12px;color:var(--text-dim);margin-bottom:6px;display:block;}
+  .field input,.field select{
+    width:100%;background:rgba(0,0,0,0.35);border:1px solid var(--glass-border);border-radius:12px;
+    padding:13px 14px;color:var(--text);font-size:14px;font-family:inherit;outline:none;transition:border-color .2s ease;
+  }
+  .field input:focus,.field select:focus{border-color:var(--blue);}
+  form .btn{width:100%;justify-content:center;margin-top:6px;}
+
+  /* FOOTER */
+  footer{border-top:1px solid var(--glass-border);background:var(--bg-alt);padding:50px 0;}
+  .foot-inner{display:flex;flex-direction:column;gap:22px;align-items:center;text-align:center;}
+  @media(min-width:760px){.foot-inner{flex-direction:row;justify-content:space-between;text-align:left;}}
+  .foot-social{display:flex;gap:16px;}
+  .foot-social a{width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--text-dim);transition:all .2s ease;}
+  .foot-social a:hover{color:white;background:var(--blue);}
+  .foot-links{display:flex;gap:22px;color:var(--text-dim);font-size:13px;}
+  .foot-links a:hover{color:var(--blue-light);}
+
+  .reveal{opacity:0;transform:translateY(26px);transition:opacity .7s ease, transform .7s ease;}
+  .reveal.in{opacity:1;transform:translateY(0);}
+
+  @media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important;}html{scroll-behavior:auto;}}
+</style>
+</head>
+<body>
+
+<nav id="nav">
+  <div class="wrap nav-inner">
+    <div class="logo"><span class="dot"></span>Crystal<span>Wash</span></div>
+    <div class="navlinks">
+      <a href="#services">Services</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#testimonials">Reviews</a>
+      <a href="#faq">FAQ</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <a href="#contact" class="btn btn-primary navbtn">Book Now</a>
+    <button class="burger" id="burgerBtn" aria-label="Menu">☰</button>
+  </div>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#services">Services</a>
+    <a href="#pricing">Pricing</a>
+    <a href="#testimonials">Reviews</a>
+    <a href="#faq">FAQ</a>
+    <a href="#contact">Contact</a>
+    <a href="#contact" class="btn btn-primary" style="justify-content:center;">Book Now</a>
+  </div>
+</nav>
+
+<header class="hero" id="hero">
+  <div class="hero-bg">
+    <img id="heroImg" src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1600&q=80" alt="Luxury sports car with water droplets">
+  </div>
+  <div class="glow glow1"></div>
+  <div class="glow glow2"></div>
+  <div class="wrap hero-content">
+    <div class="badge glass">★ Rated 4.9 by 5,000+ clients</div>
+    <h1>Premium Car Wash <span class="accent">& Detailing</span></h1>
+    <p>We restore perfection.</p>
+    <div class="btnrow">
+      <a href="#contact" class="btn btn-primary">Book Now</a>
+      <a href="#services" class="btn btn-ghost">View Services</a>
+    </div>
+  </div>
+</header>
+
+<section class="stats" id="stats">
+  <div class="wrap stats-grid">
+    <div class="reveal"><div class="stat-num" data-target="5000" data-suffix="+">0</div><div class="stat-label">Happy Clients</div></div>
+    <div class="reveal"><div class="stat-num" data-target="12000" data-suffix="+">0</div><div class="stat-label">Cars Washed</div></div>
+    <div class="reveal"><div class="stat-num" data-static="4.9★">4.9★</div><div class="stat-label">Average Rating</div></div>
+    <div class="reveal"><div class="stat-num" data-target="8" data-suffix=" yrs">0</div><div class="stat-label">Experience</div></div>
+  </div>
+</section>
+
+<section id="services">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">Our Services</span>
+      <h2>Detailing built for perfection</h2>
+      <p>From a quick refresh to a full ceramic transformation.</p>
+    </div>
+    <div class="services-grid">
+      <div class="service-card glass reveal"><div class="service-icon">💧</div><h3>Premium Wash</h3><p>Hand wash with pH-neutral shampoo and microfiber drying.</p><span class="service-price">from $39</span></div>
+      <div class="service-card glass reveal"><div class="service-icon">✨</div><h3>Interior Cleaning</h3><p>Deep vacuum, steam sanitizing, leather conditioning.</p><span class="service-price">from $59</span></div>
+      <div class="service-card glass reveal"><div class="service-icon">🛡️</div><h3>Ceramic Coating</h3><p>9H ceramic layer for years of glass-like protection.</p><span class="service-price">from $399</span></div>
+      <div class="service-card glass reveal"><div class="service-icon">🎨</div><h3>Paint Protection</h3><p>Self-healing PPF film against chips and scratches.</p><span class="service-price">from $599</span></div>
+      <div class="service-card glass reveal"><div class="service-icon">🔧</div><h3>Engine Cleaning</h3><p>Safe degreasing and detailing of the engine bay.</p><span class="service-price">from $49</span></div>
+      <div class="service-card glass reveal"><div class="service-icon">⚡</div><h3>Polishing</h3><p>Multi-stage machine polish to remove swirls and haze.</p><span class="service-price">from $149</span></div>
+    </div>
+  </div>
+</section>
+
+<section style="background:var(--bg-alt);border-top:1px solid var(--glass-border);border-bottom:1px solid var(--glass-border);">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">Results</span>
+      <h2>Before / After</h2>
+      <p>Drag the slider to see the transformation.</p>
+    </div>
+    <div class="ba-wrap reveal">
+      <div class="ba-box" id="baBox">
+        <img src="https://images.unsplash.com/photo-1580273916550-e323be2ae537?auto=format&fit=crop&w=1200&q=80" alt="After detailing">
+        <div class="ba-before-wrap" id="baBeforeWrap">
+          <img src="https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?auto=format&fit=crop&w=1200&q=80" alt="Before detailing">
+        </div>
+        <div class="ba-line" id="baLine"></div>
+        <div class="ba-handle" id="baHandle">⇔</div>
+        <span class="ba-tag before glass">Before</span>
+        <span class="ba-tag after">After</span>
+        <input type="range" min="0" max="100" value="50" class="ba-range" id="baRange">
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">Why Choose Us</span>
+      <h2>Care that shows in every detail</h2>
+    </div>
+    <div class="why-grid">
+      <div class="why-card glass reveal"><div class="ico">🏆</div><p>Professional equipment</p></div>
+      <div class="why-card glass reveal"><div class="ico">🌿</div><p>Eco friendly products</p></div>
+      <div class="why-card glass reveal"><div class="ico">👨‍🔧</div><p>Experienced specialists</p></div>
+      <div class="why-card glass reveal"><div class="ico">⚡</div><p>Fast service</p></div>
+      <div class="why-card glass reveal"><div class="ico">✅</div><p>Warranty on every job</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="pricing" style="background:var(--bg-alt);border-top:1px solid var(--glass-border);border-bottom:1px solid var(--glass-border);">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">Pricing</span>
+      <h2>Simple, transparent packages</h2>
+    </div>
+    <div class="pricing-grid">
+      <div class="price-card glass reveal">
+        <h3>Basic</h3>
+        <div class="price-amount">$39<span> / visit</span></div>
+        <ul class="price-features">
+          <li>Exterior hand wash</li><li>Wheel & tire cleaning</li><li>Window cleaning</li><li>Tire shine</li>
+        </ul>
+        <a href="#contact" class="btn btn-ghost">Choose Basic</a>
+      </div>
+      <div class="price-card highlight reveal">
+        <span class="price-tag">MOST POPULAR</span>
+        <h3>Premium</h3>
+        <div class="price-amount">$129<span> / visit</span></div>
+        <ul class="price-features">
+          <li>Everything in Basic</li><li>Full interior detailing</li><li>Wax protection</li><li>Engine bay cleaning</li><li>Odor elimination</li>
+        </ul>
+        <a href="#contact" class="btn btn-primary">Choose Premium</a>
+      </div>
+      <div class="price-card glass reveal">
+        <h3>Ultimate</h3>
+        <div class="price-amount">$399<span> / visit</span></div>
+        <ul class="price-features">
+          <li>Everything in Premium</li><li>Ceramic coating</li><li>Paint correction</li><li>Leather treatment</li><li>12-month warranty</li>
+        </ul>
+        <a href="#contact" class="btn btn-ghost">Choose Ultimate</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="testimonials">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">Testimonials</span>
+      <h2>Trusted by car lovers</h2>
+    </div>
+    <div class="test-grid">
+      <div class="test-card glass reveal">
+        <div class="stars">★★★★★</div>
+        <p>"The ceramic coating made my car look brand new. Booking was effortless and the team is incredibly professional."</p>
+        <div class="test-person"><img src="https://i.pravatar.cc/100?img=12" alt="Daniel Reyes"><div><div class="name">Daniel Reyes</div><div class="role">Tesla Model S owner</div></div></div>
+      </div>
+      <div class="test-card glass reveal">
+        <div class="stars">★★★★★</div>
+        <p>"Best detailing service I've used. Attention to detail is unreal — every panel gap was cleaned."</p>
+        <div class="test-person"><img src="https://i.pravatar.cc/100?img=32" alt="Sophia Turner"><div><div class="name">Sophia Turner</div><div class="role">BMW X5 owner</div></div></div>
+      </div>
+      <div class="test-card glass reveal">
+        <div class="stars">★★★★★</div>
+        <p>"Crystal Wash treats every car like it's a supercar. Worth every dollar for the Ultimate package."</p>
+        <div class="test-person"><img src="https://i.pravatar.cc/100?img=51" alt="Marcus Lee"><div><div class="name">Marcus Lee</div><div class="role">Porsche 911 owner</div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="faq" style="background:var(--bg-alt);border-top:1px solid var(--glass-border);border-bottom:1px solid var(--glass-border);">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">FAQ</span>
+      <h2>Questions, answered</h2>
+    </div>
+    <div class="faq-wrap">
+      <div class="faq-item glass reveal">
+        <button class="faq-q">How long does a full detail take? <span class="arrow">⌄</span></button>
+        <div class="faq-a"><p>Most Premium packages take 2–3 hours, and Ultimate ceramic coating packages take a full day to cure properly.</p></div>
+      </div>
+      <div class="faq-item glass reveal">
+        <button class="faq-q">Do I need to book in advance? <span class="arrow">⌄</span></button>
+        <div class="faq-a"><p>We recommend booking 2–3 days ahead, especially for weekend slots and ceramic coating appointments.</p></div>
+      </div>
+      <div class="faq-item glass reveal">
+        <button class="faq-q">What products do you use? <span class="arrow">⌄</span></button>
+        <div class="faq-a"><p>We use eco-friendly, pH-neutral, biodegradable products safe for all paint types and interiors.</p></div>
+      </div>
+      <div class="faq-item glass reveal">
+        <button class="faq-q">Is there a warranty? <span class="arrow">⌄</span></button>
+        <div class="faq-a"><p>Yes — ceramic coating and PPF services include a 12-month warranty against defects.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="wrap contact-grid">
+    <div class="reveal">
+      <span class="eyebrow">Contact</span>
+      <h2 style="font-size:clamp(26px,4vw,40px);font-weight:800;margin:14px 0 24px;">Book your appointment</h2>
+      <div class="info-row"><span class="ico">📞</span> +1 (555) 234-9090</div>
+      <div class="info-row"><span class="ico">✉️</span> hello@crystalwash.com</div>
+      <div class="info-row"><span class="ico">📍</span> 480 Harbor Blvd, Los Angeles, CA</div>
+      <div class="info-row"><span class="ico">🕒</span> Mon–Sat: 8:00–20:00, Sun: 10:00–17:00</div>
+      <div class="map-box glass">Map placeholder — 480 Harbor Blvd, Los Angeles</div>
+    </div>
+    <form class="glass reveal" id="bookingForm">
+      <div class="field"><label>Name</label><input type="text" required placeholder="Your full name"></div>
+      <div class="field"><label>Phone</label><input type="tel" required placeholder="+1 (555) 000-0000"></div>
+      <div class="field"><label>Car model</label><input type="text" required placeholder="e.g. Tesla Model S"></div>
+      <div class="field"><label>Service</label>
+        <select required>
+          <option value="">Select a service</option>
+          <option>Premium Wash</option><option>Interior Cleaning</option><option>Ceramic Coating</option>
+          <option>Paint Protection</option><option>Engine Cleaning</option><option>Polishing</option>
+        </select>
+      </div>
+      <div class="field"><label>Date</label><input type="date" required></div>
+      <button type="submit" class="btn btn-primary" id="submitBtn">Submit booking request</button>
+    </form>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap foot-inner">
+    <div class="logo"><span class="dot"></span>Crystal<span>Wash</span></div>
+    <div class="foot-social">
+      <a href="#" aria-label="Facebook">f</a>
+      <a href="#" aria-label="Instagram">◎</a>
+      <a href="#" aria-label="Twitter">𝕏</a>
+    </div>
+    <div class="foot-links">
+      <span>© 2026 Crystal Wash. All rights reserved.</span>
+      <a href="#">Privacy Policy</a>
+      <a href="#">Terms</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Nav scroll state
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 30));
+
+  // Mobile menu
+  const burgerBtn = document.getElementById('burgerBtn');
+  const mobileMenu = document.getElementById('mobileMenu');
+  burgerBtn.addEventListener('click', () => mobileMenu.classList.toggle('open'));
+  mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => mobileMenu.classList.remove('open')));
+
+  // Reveal on scroll
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold: 0.15 });
+  revealEls.forEach(el => io.observe(el));
+
+  // Animated counters
+  const counters = document.querySelectorAll('.stat-num[data-target]');
+  const counterIO = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      const el = entry.target;
+      const target = parseFloat(el.dataset.target);
+      const suffix = el.dataset.suffix || '';
+      const duration = 1800;
+      let start = null;
+      function step(ts) {
+        if (!start) start = ts;
+        const progress = Math.min((ts - start) / duration, 1);
+        el.textContent = Math.floor(progress * target).toLocaleString() + suffix;
+        if (progress < 1) requestAnimationFrame(step);
+      }
+      requestAnimationFrame(step);
+      counterIO.unobserve(el);
+    });
+  }, { threshold: 0.5 });
+  counters.forEach(el => counterIO.observe(el));
+
+  // Mouse parallax on hero image
+  const heroImg = document.getElementById('heroImg');
+  const hero = document.getElementById('hero');
+  hero.addEventListener('mousemove', (e) => {
+    const x = (e.clientX / window.innerWidth - 0.5) * 20;
+    const y = (e.clientY / window.innerHeight - 0.5) * 20;
+    heroImg.style.transform = `translate(${x}px, ${y}px) scale(1.1)`;
+  });
+
+  // Before/After slider
+  const baRange = document.getElementById('baRange');
+  const baBeforeWrap = document.getElementById('baBeforeWrap');
+  const baLine = document.getElementById('baLine');
+  const baHandle = document.getElementById('baHandle');
+  baRange.addEventListener('input', () => {
+    const val = baRange.value;
+    baBeforeWrap.style.clipPath = `inset(0 ${100 - val}% 0 0)`;
+    baLine.style.left = val + '%';
+    baHandle.style.left = val + '%';
+  });
+
+  // FAQ accordion
+  document.querySelectorAll('.faq-item').forEach(item => {
+    item.querySelector('.faq-q').addEventListener('click', () => {
+      const isOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+      if (!isOpen) item.classList.add('open');
+    });
+  });
+
+  // Booking form
+  document.getElementById('bookingForm').addEventListener('submit', (e) => {
+    e.preventDefault();
+    const btn = document.getElementById('submitBtn');
+    btn.textContent = 'Request sent ✓';
+    setTimeout(() => { btn.textContent = 'Submit booking request'; e.target.reset(); }, 3000);
+  });
+</script>
+
+</body>
+</html>
